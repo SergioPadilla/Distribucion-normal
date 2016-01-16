@@ -1,0 +1,155 @@
+\documentclass[paper=a4, fontsize=11pt, spanish]{scrartcl}
+\usepackage{fourier}
+\usepackage{hyperref}
+\usepackage{dsfont}
+\usepackage{amssymb}
+
+\usepackage{sectsty}
+\allsectionsfont{\normalfont\scshape}
+\setlength\parindent{0pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{13.6pt}
+
+\usepackage[spanish,es-noquoting,es-lcroman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\selectlanguage{spanish}
+
+%----------------------------------------------------------------------------------------
+%	TÍTULO
+%----------------------------------------------------------------------------------------
+% Título con las líneas horizontales, nombres y fecha.
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+\title{
+  \normalfont \normalsize
+  \textsc{Universidad de Granada.} \\ [25pt]
+  \horrule{0.5pt} \\[0.4cm]
+  \huge Distribución Normal \\
+  \horrule{2pt} \\[0.5cm]
+}
+
+\author{Sergio Padilla López \and Iván Calle Gil\\}
+
+\date{\normalsize\today}
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Función de densidad}
+La distribución normal, también llamada distribución de Gauss es una distribución de probabilidad cuya función de densidad es la siguiente:
+
+$$ f(x|\mu,\sigma^2)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}   $$
+
+donde, $x \in \mathds{R}$, $\mu$ es la media y $\sigma^2$ es la varianza de la variable aleatoria.
+
+Por tanto, notamos a la distribución normal como, $n(\mu,\sigma^2)$.
+
+\section{Función de distribución}
+Una vez conocida la función de densidad, vamos a escribir la función de distribución como sigue:
+
+$$
+P(X \leq x) = \int_{-\infty}^{x} \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(t-\mu)^2}{2\sigma^2}} \cdot dt
+$$
+
+Veamos que si una variable aleatoria $X \backsim n(\mu,\sigma^2)$ la variable aleatoria $Z=\frac{x-\mu}{\sigma}$ es $n(0,1)$.
+
+$$
+P(Z \leq z) = P(\frac{x-\mu}{\sigma} \leq z) = P(X \leq z\sigma + \mu) = \frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^{z\sigma + \mu} e^{-\frac{(x-\mu)^2}{2\sigma^2}} \cdot dx
+$$
+haciendo $t=\frac{x-\mu}{\sigma}$:
+
+$$
+\frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^{z\sigma + \mu} e^{-\frac{(x-\mu)^2}{2\sigma^2}} \cdot dx = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{z} e^{-\frac{t^2}{2}} \cdot dt
+$$
+
+y por tanto, $P(Z\leq z)$ sigue n(0,1).
+
+\section{Función Generatriz de momentos}
+Definimos la función generatriz de momentos como la esperanza de la variable $e^{tX}$:
+
+$$ M_x(t) = E[e^{tX}] = \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{(x-\mu)^2}{2\sigma^2}}e^{tX} \cdot dx $$
+
+$$
+= \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^{\infty} e^{\frac{2\sigma^2tX-(x^2+\mu^2-2x\mu)}{2\sigma^2}} \cdot dx
+$$
+
+$$
+= \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{x^2-2(\sigma^2t+\mu)x + \mu^2}{2\sigma^2}} \cdot dx
+$$
+
+$$
+= \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{x^2-2(\sigma^2t+\mu)x + \mu^2 - (\sigma^2t+\mu)^2+(\sigma^2t+\mu)^2}{2\sigma^2}} \cdot dx
+$$
+
+$$
+= \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{(x-(\sigma^2t+\mu))^2 + \mu^2 - (\sigma^2t+\mu)^2}{2\sigma^2}} \cdot dx
+$$
+
+$$
+= \frac{1}{\sigma \sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{(x-(\sigma^2t+\mu))^2 - \sigma^2(\sigma^2t^2+2\mu t)}{2\sigma^2}} \cdot dx
+$$
+
+$$
+= \frac{1}{\sigma \sqrt{2\pi}}e^\frac{\sigma^2t^2+2\mu t}{2} \int_{-\infty}^{\infty} e^{-\frac{(x-(\sigma^2t+\mu))^2}{2\sigma^2}} \cdot dx
+$$
+
+haciendo el cambio de variable: $v=\frac{x-(\sigma^2t+\mu)}{\sigma}$ ; $dv=\frac{1}{\sigma} dx$:
+
+$$
+= \frac{1}{\sigma \sqrt{2\pi}}e^\frac{\sigma^2t^2+2\mu t}{2} \int_{-\infty}^{\infty} e^{-\frac{v^2}{2}}\sigma \cdot dv
+$$
+
+$$
+= \frac{1}{\sqrt{2\pi}}e^\frac{\sigma^2t^2+2\mu t}{2} \int_{-\infty}^{\infty} e^{-\frac{v^2}{2}} \cdot dv
+$$
+
+y sabiendo que: 
+
+$$
+\frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{v^2}{2}} \cdot dv = 1
+$$
+
+tenemos que:
+
+$$
+M_x(t) = e^{\frac{\sigma^2t^2}{2}+\mu t}
+$$
+
+\section{Esperanza}
+La esperanza matemática de la distribución normal se corresponde con el momento de orden 1 que se calcula como:
+
+$$
+E[X]=E[X^2]-E[X]^2=M_x'(0)
+$$
+
+Calculemos la primera derivada de la función generatriz de momentos:
+
+$$
+M_x'(t)=(\sigma^2t+\mu)e^{\frac{\sigma^2t^2}{2}+\mu t}
+$$
+
+Por tanto:
+
+$$
+E[X]=\mu
+$$
+
+\end{document}
